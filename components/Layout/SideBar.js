@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Drawer,
   DrawerCloseButton,
   DrawerContent,
@@ -16,6 +15,7 @@ import React, { Fragment, useState } from 'react';
 import styles from '../../styles/theme/linkStyle.module.css';
 import { useIsMobileDevice } from '@/app/hooks/useIseMobileDevice';
 import { navItems } from '@/Helpers/constant';
+import { ArrowDown, ArrowUp } from '../Icons';
 
 export const SideBar = ({ pathname, isOpen, onClose }) => {
   const isMobileDevice = useIsMobileDevice();
@@ -30,11 +30,12 @@ export const SideBar = ({ pathname, isOpen, onClose }) => {
         <Flex dir='column'>
           <Box mt='5' p='5'>
             {navItems.map(({ label, path, hasSubMenu, subMenu, icon }) => {
-          
               return (
                 <List
                   key={label}
-                  _hover={{ cursor: 'pointer' }}
+                  _hover={{
+                    cursor: 'pointer',
+                  }}
                   bg='white'
                   p='3'
                   w='full'
@@ -59,33 +60,37 @@ export const SideBar = ({ pathname, isOpen, onClose }) => {
                         </Text>
                         <Text as='span'>{label}</Text>
                         {hasSubMenu ? (
-                          <Button
+                          <Box
                             variant='unstyled'
-                            p='0'
+                            pl='2'
                             m='0'
+                            transform={
+                              pathname === path?.toLowerCase() && showSubMenu
+                                ? 'rotate(360deg)'
+                                : 'unset'
+                            }
+                            transition='width 1s, height 1s, transform 1s'
                             onClick={() => setShowSubMenu(!showSubMenu)}>
-                            <Text as='span' pl='2' transition='width 1s, height 1s, transform 1s'>
-                              &gt;
-                            </Text>
-                          </Button>
+                            {hasSubMenu && pathname === path?.toLowerCase() && showSubMenu ? (
+                              <ArrowUp />
+                            ) : (
+                              <ArrowDown />
+                            )}
+                          </Box>
                         ) : null}
                       </Flex>
                     </Link>
                   </ListItem>
-                  {showSubMenu && (
+                  {pathname === path?.toLowerCase() && showSubMenu && (
                     <Fragment>
                       {subMenu?.map(({ label, path, icon }) => (
-                        <Box key={label + 'yugyuu'} mb='3'>
+                        <Box key={label} my='3'>
                           <Link
                             shallow
                             className={pathname === path.toLowerCase() ? styles.Active : ''}
                             href={path}>
                             <Flex alignItems='center'>
-                              <Text
-                                as='span'
-                                pr='2'
-                                // className={pathname === path.toLowerCase() ? styles.Active : ''}
-                              >
+                              <Text as='span' pr='2'>
                                 {icon}
                               </Text>
                               <Text as='span'>{label}</Text>
