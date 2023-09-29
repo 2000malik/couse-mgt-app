@@ -13,7 +13,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { ViewMore } from '@/components/Icons';
-import { ViewMoreCard } from './viewmoreCard';
+import { ViewMoreCard } from './viewMoreCard';
 export const UserTable = ({ usersList = [] }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const usersTableHead = ['id', 'name', 'username', 'email', 'phone', 'view more'];
