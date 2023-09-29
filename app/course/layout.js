@@ -3,7 +3,7 @@
 import { Providers } from "../providers";
 
 export const metadata = {
-  title: 'Student',
+  title: 'Course',
   description: '',
 };
 

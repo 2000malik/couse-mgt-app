@@ -8,17 +8,18 @@ import {
   Heading,
   List,
   ListItem,
+  Text,
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import styles from '../../styles/theme/linkStyle.module.css';
 import { useIsMobileDevice } from '@/app/hooks/useIseMobileDevice';
+import { navItems } from '@/Helpers/constant';
+import { ArrowDown, ArrowUp } from '../Icons';
+
 export const SideBar = ({ pathname, isOpen, onClose }) => {
   const isMobileDevice = useIsMobileDevice();
-  const navItems = [
-    { label: 'Dashboard', path: '/' },
-    { label: 'Student List ', path: '/student' },
-  ];
+  const [showSubMenu, setShowSubMenu] = useState(false);
 
   return (
     <SidebarWrapper onClose={onClose} isOpen={isOpen}>
@@ -28,27 +29,80 @@ export const SideBar = ({ pathname, isOpen, onClose }) => {
         </Heading>
         <Flex dir='column'>
           <Box mt='5' p='5'>
-            {navItems.map(({ label, path }) => (
-              <List
-                key={label}
-                _hover={{ cursor: 'pointer' }}
-                bg='white'
-                p='3'
-                w='full'
-                textAlign='center'
-                border='1px solid #e2e8f0'
-                borderRadius='10'
-                mb='3'>
-                <ListItem>
-                  <Link
-                    shallow
-                    className={pathname === path.toLowerCase() ? styles.Active : ''}
-                    href={path}>
-                    {label}
-                  </Link>
-                </ListItem>
-              </List>
-            ))}
+            {navItems.map(({ label, path, hasSubMenu, subMenu, icon }) => {
+              return (
+                <List
+                  key={label}
+                  _hover={{
+                    cursor: 'pointer',
+                  }}
+                  bg='white'
+                  p='3'
+                  w='full'
+                  textAlign='center'
+                  border='1px solid #e2e8f0'
+                  borderRadius='10'
+                  fontSize='sm'
+                  fontWeight='medium'
+                  mb='3'>
+                  <ListItem>
+                    <Link
+                      shallow
+                      className={pathname === path?.toLowerCase() ? styles.Active : ''}
+                      href={path}>
+                      <Flex alignItems='center'>
+                        <Text
+                          as='span'
+                          pr='2'
+                          // className={pathname === path.toLowerCase() ? styles.Active : ''}
+                        >
+                          {icon}
+                        </Text>
+                        <Text as='span'>{label}</Text>
+                        {hasSubMenu ? (
+                          <Box
+                            variant='unstyled'
+                            pl='2'
+                            m='0'
+                            transform={
+                              pathname === path?.toLowerCase() && showSubMenu
+                                ? 'rotate(360deg)'
+                                : 'unset'
+                            }
+                            transition='width 1s, height 1s, transform 1s'
+                            onClick={() => setShowSubMenu(!showSubMenu)}>
+                            {hasSubMenu && pathname === path?.toLowerCase() && showSubMenu ? (
+                              <ArrowUp />
+                            ) : (
+                              <ArrowDown />
+                            )}
+                          </Box>
+                        ) : null}
+                      </Flex>
+                    </Link>
+                  </ListItem>
+                  {pathname === path?.toLowerCase() && showSubMenu && (
+                    <Fragment>
+                      {subMenu?.map(({ label, path, icon }) => (
+                        <Box key={label} my='3'>
+                          <Link
+                            shallow
+                            className={pathname === path.toLowerCase() ? styles.Active : ''}
+                            href={path}>
+                            <Flex alignItems='center'>
+                              <Text as='span' pr='2'>
+                                {icon}
+                              </Text>
+                              <Text as='span'>{label}</Text>
+                            </Flex>
+                          </Link>
+                        </Box>
+                      ))}
+                    </Fragment>
+                  )}
+                </List>
+              );
+            })}
           </Box>
         </Flex>
       </Box>

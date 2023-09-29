@@ -1,7 +1,6 @@
-import { StyledCard } from '@/components/Card';
 import { PageLayout } from '@/components/Layout';
-import { Heading, Table, TableContainer, Tbody, Td,  Th, Thead, Tr } from '@chakra-ui/react';
-import React from 'react';
+import { Heading } from '@chakra-ui/react';
+import { UserTable } from './studentTable';
 
 async function getData() {
   const path = 'https://jsonplaceholder.typicode.com/users';
@@ -13,7 +12,7 @@ async function getData() {
 
   return res.json();
 }
-export default async function Home() {
+export default async function Student() {
   const data = await getData();
 
   return (
@@ -21,37 +20,9 @@ export default async function Home() {
       <Heading mb='5' as='h4' size='lg' textAlign='center'>
         API CALL EXAMPLE
       </Heading>
-
       <UserTable usersList={data} />
     </PageLayout>
   );
 }
 
-export const UserTable = ({ usersList = [] }) => {
-  const usersTableHead = ['id', 'name', 'username', 'email', 'phone'];
-
-  return (
-    <StyledCard variant='elevated'>
-      <TableContainer>
-        <Table variant='simple'>
-          <Thead>
-            <Tr>{React.Children.toArray(usersTableHead.map((name) => <Th>{name}</Th>))}</Tr>
-          </Thead>
-          <Tbody>
-            {React.Children.toArray(
-              usersList?.map((info) => (
-                <Tr>
-                  <Td>{info.id}</Td>
-                  <Td> {info.name}</Td>
-                  <Td>{info.username}</Td>
-                  <Td> {info.email}</Td>
-                  <Td>{info.phone}</Td>
-                </Tr>
-              ))
-            )}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </StyledCard>
-  );
-};
+//
