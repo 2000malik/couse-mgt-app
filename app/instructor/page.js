@@ -1,9 +1,10 @@
-'use client'
+'use client';
 import { CreateNewItem } from '@/components/Card/CreateNewItem';
 import { PageLayout } from '@/components/Layout';
-import { Flex, useDisclosure } from '@chakra-ui/react';
+import { Flex, Heading, useDisclosure } from '@chakra-ui/react';
 import { Fragment } from 'react';
-import { CourseModal } from '../page';
+import { InstructorModal } from './InstructorModal';
+import { InstructorProfileCard } from './InstructorProfileCard';
 
 export default function Instructor() {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -13,8 +14,14 @@ export default function Instructor() {
         <Flex flexDir={{ base: 'column', md: 'initial' }}>
           <CreateNewItem title='Create New Instructor' handleOnClick={onOpen} />
         </Flex>
+        <Heading variant='h5' my='3'>
+          Instructors
+        </Heading>
+        <Flex flexWrap='wrap' justifyContent='space-between' w='full'>
+          <InstructorProfileCard />
+        </Flex>
       </PageLayout>
-      {isOpen && <CourseModal isOpen={isOpen} onClose={onClose} />}
+      {isOpen && <InstructorModal isOpen={isOpen} onClose={onClose} />}
     </Fragment>
   );
 }

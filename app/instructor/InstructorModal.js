@@ -1,42 +1,15 @@
-'use client';
+import { AppContext } from '../context';
+import { Box, ModalBody, ModalFooter, ModalHeader } from '@chakra-ui/react';
+import { useContext, useEffect, useState } from 'react';
 import { StyledButton } from '@/components/Button';
 import { StyledInputBox } from '@/components/InputBox';
-import { PageLayout } from '@/components/Layout';
 import { StyledModal } from '@/components/Modal';
-import { StyledTable } from '@/components/Table';
 
-import { Box, Flex, ModalBody, ModalFooter, ModalHeader, useDisclosure } from '@chakra-ui/react';
-
-import { Fragment, useContext, useEffect, useState } from 'react';
-import { AppContext } from './context';
-import { CreateNewItem } from '@/components/Card/CreateNewItem';
-
-export default function Home() {
-  const { isOpen, onClose, onOpen } = useDisclosure();
-
-  const { Course } = useContext(AppContext);
-  return (
-    <Fragment>
-      <PageLayout>
-        <Flex flexDir={{ base: 'column', md: 'initial' }}>
-          <CreateNewItem title='Create Course' handleOnClick={onOpen} />
-        </Flex>
-        {Course.length > 0 && (
-          <Box mt='5'>
-            <StyledTable tableData={Course} />
-          </Box>
-        )}
-      </PageLayout>
-      {isOpen && <CourseModal isOpen={isOpen} onClose={onClose} />}
-    </Fragment>
-  );
-}
-
-export const CourseModal = ({ isOpen, onClose }) => {
-  const { Course, setCourse } = useContext(AppContext);
+export const InstructorModal = ({ isOpen, onClose }) => {
+  const { instructor, setInstructor } = useContext(AppContext);
   const [formData, setFormData] = useState({
-    course_name: '',
-    course_id: '',
+    instructor_name: '',
+    instructor_dept: '',
   });
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const handleOnChange = (e) => {
@@ -49,14 +22,14 @@ export const CourseModal = ({ isOpen, onClose }) => {
 
   const handleOnSubmit = () => {
     // Create a new array or modify the existing one
-    const newArray = [...Course, formData];
-    setCourse(newArray); // Update the state
+    const newArray = [...instructor, formData];
+    setInstructor(newArray); // Update the state
     onClose(); //close modal
     setFormData();
   };
   useEffect(() => {
-    const { course_name, course_id } = formData;
-    if (course_name && course_id) {
+    const { instructor_name, instructor_dept } = formData;
+    if (instructor_name && instructor_dept) {
       setIsButtonDisabled(false);
     } else {
       setIsButtonDisabled(true);
@@ -66,29 +39,29 @@ export const CourseModal = ({ isOpen, onClose }) => {
   return (
     <StyledModal isOpen={isOpen} onClose={onClose} hasCloseButton={true} p='5'>
       <ModalHeader p='0' textAlign='center' fontSize='lg' mb='5'>
-        Register New Course
+        Register New Instructor
       </ModalHeader>
       <form onSubmit={handleOnSubmit}>
         <ModalBody>
           <Box mb='5'>
             <StyledInputBox
-              label='Course Name'
+              label={"Instructor's Name"}
               type='text'
-              name={'course_name'}
-              value={formData.course_name}
+              name={'instructor_name'}
+              value={formData.instructor_name}
               handleOnChange={handleOnChange}
-              placeholder='Enter Course Name'
+              placeholder={"Enter Instructor's Name"}
               isRequired={true}
             />
           </Box>
           <Box mb='5'>
             <StyledInputBox
-              label='Course ID'
+              label='Department'
               type='text'
-              name={'course_id'}
-              value={formData.course_id}
+              name={'instructor_dept'}
+              value={formData.instructor_dept}
               handleOnChange={handleOnChange}
-              placeholder='Enter Course ID'
+              placeholder='Enter Department'
               isRequired={true}
             />
           </Box>
@@ -102,7 +75,7 @@ export const CourseModal = ({ isOpen, onClose }) => {
             bg='background'
             disabled={isButtonDisabled}
             w='full'>
-            Submit
+            Create
           </StyledButton>
         </ModalFooter>
       </form>

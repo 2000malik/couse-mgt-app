@@ -1,4 +1,4 @@
-import CourseProvider from './context/course';
+import AppProvider from './context'; // for context states vales & updaters
 import { Providers } from './providers';
 
 export const metadata = {
@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
     <html lang='en'>
       <body>
         <Providers>
-          <CourseProvider>{children}</CourseProvider>
+          <AppProvider>{children}</AppProvider>
         </Providers>
       </body>
     </html>
