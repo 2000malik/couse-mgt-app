@@ -11,7 +11,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment,  useState } from 'react';
 import styles from '../../styles/theme/linkStyle.module.css';
 import { useIsMobileDevice } from '@/app/hooks/useIseMobileDevice';
 import { navItems } from '@/Helpers/constant';
@@ -20,7 +20,9 @@ import { ArrowDown, ArrowUp } from '../Icons';
 export const SideBar = ({ pathname, isOpen, onClose }) => {
   const isMobileDevice = useIsMobileDevice();
   const [showSubMenu, setShowSubMenu] = useState(false);
-
+  // useEffect(() => {
+  //   onClose();
+  // }, [onClose, pathname]);
   return (
     <SidebarWrapper onClose={onClose} isOpen={isOpen}>
       <Box w={isMobileDevice ? 'full' : '20%'} height='100vh' bg='background' padding={5}>

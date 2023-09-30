@@ -1,24 +1,15 @@
 'use client';
 import { StyledButton } from '@/components/Button';
-import { StyledCard } from '@/components/Card';
 import { StyledInputBox } from '@/components/InputBox';
 import { PageLayout } from '@/components/Layout';
 import { StyledModal } from '@/components/Modal';
-import { NewCourseButton } from '@/components/NewCourseButton';
 import { StyledTable } from '@/components/Table';
 
-import {
-  Box,
-  Flex,
-  Heading,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Box, Flex, ModalBody, ModalFooter, ModalHeader, useDisclosure } from '@chakra-ui/react';
 
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { CourseContext } from './context/course';
+import { CreateNewItem } from '@/components/Card/CreateNewItem';
 
 export default function Home() {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -28,26 +19,7 @@ export default function Home() {
     <Fragment>
       <PageLayout>
         <Flex flexDir={{ base: 'column', md: 'initial' }}>
-          <StyledCard
-            border='1px solid #e2e8f0'
-            bg='white'
-            size='lg'
-            px={{ base: '4', md: '6' }}
-            py={{ base: '4', md: '7' }}
-            width={{ base: 'full', md: 'calc((100% /2) - 16px)' }}
-            mr={{ base: 'unset', md: '4' }}
-            mb={{ base: '4', md: 'unset' }}>
-            <Flex justify='space-between' mb='4'>
-              <Box>
-                <Heading mt='2' size='md' fontWeight='bold' fontSize={{ base: 'md', md: 'xl' }}>
-                  Create Course
-                </Heading>
-              </Box>
-              <Box>
-                <NewCourseButton handleOnClick={onOpen} />
-              </Box>
-            </Flex>
-          </StyledCard>
+          <CreateNewItem title='Create Course' handleOnClick={onOpen} />
         </Flex>
         {Course.length > 0 && (
           <Box mt='5'>

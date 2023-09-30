@@ -17,11 +17,12 @@ import { ViewMoreCard } from './viewMoreCard';
 export const UserTable = ({ usersList = [] }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const usersTableHead = ['id', 'name', 'username', 'email', 'phone', 'view more'];
-  const [, setUserInfo] = useState({});
-  const handleStudentInfoUpdate = ({ ...args }) => {
+  const [userInfo, setUserInfo] = useState({});
+  const handleStudentInfoUpdate = async ({ ...args }) => {
     const { info } = args;
+
     setUserInfo(info);
-    // console.log(info);
+
     onOpen();
   };
   return (
@@ -53,7 +54,7 @@ export const UserTable = ({ usersList = [] }) => {
           </Table>
         </TableContainer>
       </StyledCard>
-      {isOpen && <ViewMoreCard isOpen={isOpen} onClose={onClose} />}
+      {isOpen && <ViewMoreCard isOpen={isOpen} onClose={onClose} data={userInfo} />}
     </Fragment>
   );
 };
