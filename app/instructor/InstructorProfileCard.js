@@ -3,7 +3,7 @@ import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
 
-export const InstructorProfileCard = ({}) => {
+export const InstructorProfileCard = ({ name, dept }) => {
   return (
     <StyledCard
       border='1px solid #e2e8f0'
@@ -11,11 +11,11 @@ export const InstructorProfileCard = ({}) => {
       size='lg'
       px={{ base: '4', md: '6' }}
       py={{ base: '4', md: '7' }}
-      width={{ base: 'full', md: 'calc((100% /2) - 16px)' }}
+      width={{ base: 'full', md: 'calc((100% /3) - 16px)' }}
       mr={{ base: 'unset', md: '4' }}
-      mb={{ base: '4', md: 'unset' }}>
+      mb={{ base: '4', md: '4' }}>
       <Flex align='center'>
-        <Avatar name='I N' />
+        <Avatar name={name} />
         <Box>
           <Link href='https://2000malik.github.io/couse-mgt-app/' target='_blank'>
             <Text
@@ -24,7 +24,7 @@ export const InstructorProfileCard = ({}) => {
               ml='3'
               color='background'
               textTransform='capitalize'>
-              name :
+              name : {name}
             </Text>
           </Link>
           <Text
@@ -33,7 +33,7 @@ export const InstructorProfileCard = ({}) => {
             ml='3'
             color='background'
             textTransform='capitalize'>
-            dept
+            dept : {dept}
           </Text>
         </Box>
       </Flex>
