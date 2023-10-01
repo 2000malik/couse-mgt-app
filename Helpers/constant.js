@@ -9,8 +9,8 @@ export const navItems = [
     hasSubMenu: true,
     icon: <Course />,
     subMenu: [
-      { label: 'Lesson ', path: '/course/lesson', icon: <Profile /> },
-      { label: 'Test ', path: '/course/test', icon: <Students /> },
+      { label: 'Lesson ', path: '#', icon: <Profile /> },
+      { label: 'Test ', path: '#', icon: <Students /> },
     ],
   },
   { label: 'Instructors', path: '/instructor', hasSubMenu: false, icon: <Instructors /> },
@@ -20,7 +20,7 @@ export const navItems = [
     hasSubMenu: true,
     icon: <Settings />,
     subMenu: [
-      { label: 'profile ', path: '/settings/profile', icon: <Profile /> },
+      { label: 'profile ', path: '#', icon: <Profile /> },
       // { label: 'Settings ', path: '/settings', icon: <Students /> },
     ],
   },
