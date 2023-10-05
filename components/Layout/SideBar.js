@@ -28,7 +28,8 @@ export const SideBar = ({ pathname, isOpen, onClose }) => {
       <Box
         w={isMobileDevice ? 'full' : '20%'}
         minW='48'
-        height='100vh'
+        h='100vh'
+        minH='100'
         bg='background'
         padding={{ md: 'unset', lg: 5 }}>
         <aside>
