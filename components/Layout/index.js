@@ -13,7 +13,13 @@ export const PageLayout = ({ children }) => {
   return (
     <Flex>
       <SideBar pathname={pathname} isOpen={isOpen} onClose={onClose} />
-      <Box w={isMobileDevice ? 'full' : '80%'} height='100vh' bg='gray1' padding={5}>
+      <Box
+        w={isMobileDevice ? 'full' : '80%'}
+        h='100vh'
+        minH='100'
+        overflow='auto'
+        bg='gray1'
+        padding={5}>
         <main>
           <Box bg='white' padding={5} border='1px solid #e2e8f0' borderRadius='10'>
             <Flex minWidth='max-content' alignItems='center' gap='2'>
@@ -35,7 +41,6 @@ export const PageLayout = ({ children }) => {
           </Box>
           <Box
             bg='white'
-            height='fit-content'
             padding={5}
             mt='5'
             border='1px solid #e2e8f0'
