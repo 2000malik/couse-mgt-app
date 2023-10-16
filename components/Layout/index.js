@@ -4,12 +4,15 @@ import { usePathname } from 'next/navigation';
 import { SideBar } from './SideBar';
 import { Hamburger } from '../Hambuger';
 import { useIsMobileDevice } from '@/app/hooks/useIseMobileDevice';
+import { useContext } from 'react';
+import { AppContext } from '@/app/context';
 
 export const PageLayout = ({ children }) => {
   const pathname = usePathname();
   const refinedPathname = pathname.slice(1).toUpperCase();
   const isMobileDevice = useIsMobileDevice();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { userProfile } = useContext(AppContext);
   return (
     <Flex>
       <SideBar pathname={pathname} isOpen={isOpen} onClose={onClose} />
@@ -31,7 +34,7 @@ export const PageLayout = ({ children }) => {
               <Spacer />
               <Box gap='2'>
                 <Box display={{ base: 'none', md: 'unset' }}>
-                  <Avatar name='Course Mgt' />
+                  <Avatar name={userProfile.name} src='/assests/images/malik2.jpeg' color='white' />
                 </Box>
                 <Button display={{ md: 'none' }} onClick={onOpen}>
                   <Hamburger />
@@ -39,12 +42,7 @@ export const PageLayout = ({ children }) => {
               </Box>
             </Flex>
           </Box>
-          <Box
-            bg='white'
-            padding={5}
-            mt='5'
-            border='1px solid #e2e8f0'
-            borderRadius='10'>
+          <Box bg='white' padding={5} mt='5' border='1px solid #e2e8f0' borderRadius='10'>
             {children}
           </Box>
         </main>

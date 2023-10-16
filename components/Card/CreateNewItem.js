@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyledCard } from '.';
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { NewCourseButton } from '../NewCourseButton';
 
-export const CreateNewItem = ({ title, handleOnClick }) => {
+export const CreateNewItem = ({ title, handleOnClick, cardIcon = false }) => {
   return (
     <StyledCard
       border='1px solid #e2e8f0'
@@ -21,7 +21,13 @@ export const CreateNewItem = ({ title, handleOnClick }) => {
           </Heading>
         </Box>
         <Box>
-          <NewCourseButton handleOnClick={handleOnClick} />
+          {cardIcon ? (
+            <Button cursor='pointer' variant='unstyled' onClick={handleOnClick}>
+              {cardIcon}{' '}
+            </Button>
+          ) : (
+            <NewCourseButton handleOnClick={handleOnClick} />
+          )}
         </Box>
       </Flex>
     </StyledCard>

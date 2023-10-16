@@ -17,11 +17,7 @@ export const navItems = [
   {
     label: 'Settings ',
     path: '/settings',
-    hasSubMenu: true,
+    hasSubMenu: false,
     icon: <Settings />,
-    subMenu: [
-      { label: 'profile ', path: '#', icon: <Profile /> },
-      // { label: 'Settings ', path: '/settings', icon: <Students /> },
-    ],
   },
 ];
